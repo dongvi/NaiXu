@@ -36,7 +36,9 @@ class SplashFragment: BaseFragment() {
 
         view_logo.postDelayed({
             view_logo.visible()
+            
             view_logo.setAnim(context, R.anim.up_fade_in, 2000)
+
             view_logo.postDelayed ({
                 view_logo.setAnim(context, R.anim.right_exit, 300)
                 view_logo.gone()
