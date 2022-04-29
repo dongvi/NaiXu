@@ -1,0 +1,137 @@
+<resources>
+  <dimen name="space_1">
+    0.67dp
+  </dimen>
+  <dimen name="space_2">
+    1.33dp
+  </dimen>
+  <dimen name="space_3">
+    2.0dp
+  </dimen>
+  <dimen name="space_4">
+    2.67dp
+  </dimen>
+  <dimen name="space_5">
+    3.33dp
+  </dimen>
+  <dimen name="space_6">
+    4.0dp
+  </dimen>
+  <dimen name="space_7">
+    4.67dp
+  </dimen>
+  <dimen name="space_8">
+    5.33dp
+  </dimen>
+  <dimen name="space_9">
+    6.0dp
+  </dimen>
+  <dimen name="space_10">
+    6.67dp
+  </dimen>
+  <dimen name="space_11">
+    7.33dp
+  </dimen>
+  <dimen name="space_12">
+    8.0dp
+  </dimen>
+  <dimen name="space_13">
+    8.67dp
+  </dimen>
+  <dimen name="space_14">
+    9.33dp
+  </dimen>
+  <dimen name="space_15">
+    10.0dp
+  </dimen>
+  <dimen name="space_16">
+    10.67dp
+  </dimen>
+  <dimen name="space_17">
+    11.33dp
+  </dimen>
+  <dimen name="space_18">
+    12.0dp
+  </dimen>
+  <dimen name="space_19">
+    12.67dp
+  </dimen>
+  <dimen name="space_20">
+    13.33dp
+  </dimen>
+  <dimen name="space_21">
+    14.0dp
+  </dimen>
+  <dimen name="space_22">
+    14.67dp
+  </dimen>
+  <dimen name="space_23">
+    15.33dp
+  </dimen>
+  <dimen name="space_24">
+    16.0dp
+  </dimen>
+  <dimen name="space_25">
+    16.67dp
+  </dimen>
+  <dimen name="space_26">
+    17.33dp
+  </dimen>
+  <dimen name="space_27">
+    18.0dp
+  </dimen>
+  <dimen name="space_28">
+    18.67dp
+  </dimen>
+  <dimen name="space_29">
+    19.33dp
+  </dimen>
+  <dimen name="space_30">
+    20.0dp
+  </dimen>
+  <dimen name="text_8">
+    5.33sp
+  </dimen>
+  <dimen name="text_9">
+    6.0sp
+  </dimen>
+  <dimen name="text_10">
+    6.67sp
+  </dimen>
+  <dimen name="text_11">
+    7.33sp
+  </dimen>
+  <dimen name="text_12">
+    8.0sp
+  </dimen>
+  <dimen name="text_13">
+    8.67sp
+  </dimen>
+  <dimen name="text_14">
+    9.33sp
+  </dimen>
+  <dimen name="text_15">
+    10.0sp
+  </dimen>
+  <dimen name="text_16">
+    10.67sp
+  </dimen>
+  <dimen name="text_17">
+    11.33sp
+  </dimen>
+  <dimen name="text_18">
+    12.0sp
+  </dimen>
+  <dimen name="text_19">
+    12.67sp
+  </dimen>
+  <dimen name="text_20">
+    13.33sp
+  </dimen>
+  <dimen name="text_21">
+    14.0sp
+  </dimen>
+  <dimen name="text_22">
+    14.67sp
+  </dimen>
+</resources>
