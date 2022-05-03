@@ -1,6 +1,7 @@
 package com.projectbase.mainapp.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.projectbase.R
 import com.projectbase.base.ui.BaseActivity
@@ -21,6 +22,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
         initViews()
         initScreenFlow()
@@ -64,7 +66,7 @@ class MainActivity : BaseActivity() {
 
     fun openHomeScreen() {
         supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.right_enter, R.anim.fade_out)
+            .setCustomAnimations(R.anim.right_enter, R.anim.left_exit)
             .replace(
                 R.id.container,
                 HomeFragment(),
