@@ -26,6 +26,16 @@ class MainActivity : BaseActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
     private var currentFragmentTag: String? = null
+    private val onClickBottomMenuListener = object : OnClickBottomMenuListener {
+        override fun onItemClick(position: Int) {
+            when(position) {
+                0 -> {}
+                1 -> {}
+                2 -> {}
+                3 -> {}
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,64 +53,9 @@ class MainActivity : BaseActivity() {
 
     private fun initViews() {
         // catch click event on bottom menu
-        bottom_menu.setOnClickBottomMenuListener(object : OnClickBottomMenuListener {
-            override fun onItemClick(position: Int) {
-                when(position) {
-                    0 -> {}
-                    1 -> {}
-                    2 -> {}
-                    3 -> {}
-                }
-            }
-        })
+        bottom_menu.setOnClickBottomMenuListener(onClickBottomMenuListener)
 
-        // hide or show bottom menu
-        var valueRotate = 0f
-        var isHidden = false
-        var isAllow = true // allow interaction
-        val dim = Runnable { btn_hide_or_show_btm.animate().alpha(0.3f).start() }
-        val handler = Handler()
-        btn_hide_or_show_btm.setOnClickListener {
-            if(isAllow) {
-                // temporality not interaction
-                isAllow = false
-
-                bottom_menu.setAnim(applicationContext,
-                    if (!isHidden) {
-                        bottom_menu.gone()
-                        R.anim.down_exit
-                    } else {
-                        bottom_menu.visible()
-                        R.anim.up_in
-                    }, 1000
-                )
-
-                // set anim 1 for btn_hide_or_show_btm
-                it.animate().translationY(if(!isHidden) bottom_menu.height.toFloat() else 0f)
-                    .setDuration(2000).start()
-
-                // set anim 2 for btn_hide_or_show_btm after time duration of anim 1
-                it.postDelayed({
-                    valueRotate += 180f
-                    it.animate().rotation(valueRotate).setDuration(1000).start()
-
-                    // change value off sttIc and sttInteract after anims are run all
-                    it.postDelayed({
-                        isHidden = !isHidden
-                        isAllow = true
-                    }, 2000)
-                }, 1000)
-            }
-
-            // clarify btn_hide_or_show_btm
-            it.animate().alpha(1.0f).setDuration(0).start()
-            handler.removeCallbacks(dim)
-
-            // if bottom menu is hidden and after 3s not interact the btn_hide_or_show_btm is dim
-            if(!isHidden) {
-                handler.postDelayed(dim, 3000)
-            }
-        }
+        hideOrShowBottomMenu()
     }
 
     private fun handleObservable() {
@@ -185,6 +140,56 @@ class MainActivity : BaseActivity() {
         return when (fragmentTag) {
             HomeFragment.TAG -> HomeFragment()
             else -> HomeFragment()
+        }
+    }
+
+    fun hideOrShowBottomMenu() {
+        var valueRotate = 0f
+        var isHidden = false
+        var isAllow = true // allow interaction
+        val dim = Runnable { btn_hide_or_show_btm.animate().alpha(0.3f).start() }
+        val handler = Handler()
+
+        btn_hide_or_show_btm.setOnClickListener {
+            if(isAllow) {
+                // temporality not interaction
+                isAllow = false
+
+                bottom_menu.setAnim(applicationContext,
+                    if (!isHidden) {
+                        bottom_menu.gone()
+                        R.anim.down_exit
+                    } else {
+                        bottom_menu.visible()
+                        R.anim.up_in
+                    }, 1000
+                )
+
+                // set anim 1 for btn_hide_or_show_btm
+                it.animate().translationY(if(!isHidden) bottom_menu.height.toFloat() else 0f)
+                    .setDuration(2000).start()
+
+                // set anim 2 for btn_hide_or_show_btm after time duration of anim 1
+                it.postDelayed({
+                    valueRotate += 180f
+                    it.animate().rotation(valueRotate).setDuration(1000).start()
+
+                    // change value off sttIc and sttInteract after anims are run all
+                    it.postDelayed({
+                        isHidden = !isHidden
+                        isAllow = true
+                    }, 1500)
+                }, 1000)
+            }
+
+            // clarify btn_hide_or_show_btm
+            it.animate().alpha(1.0f).setDuration(0).start()
+            handler.removeCallbacks(dim)
+
+            // if bottom menu is hidden and after 3s not interact the btn_hide_or_show_btm is dim
+            if(!isHidden) {
+                handler.postDelayed(dim, 3000)
+            }
         }
     }
 }

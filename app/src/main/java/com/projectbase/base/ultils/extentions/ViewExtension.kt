@@ -42,7 +42,3 @@ fun ImageView.setImageFromAttrRs(attrs: AttributeSet, attr: String) {
 fun TextView.setTextFromAttrRs(attrs: AttributeSet, attr: String) {
     this.text = resources.getString(attrs.getAttributeResourceValue(null, attr, 0))
 }
-
-fun TextView.setColor(colorID: Int) {
-    this.setTextColor(resources.getColor(colorID))
-}

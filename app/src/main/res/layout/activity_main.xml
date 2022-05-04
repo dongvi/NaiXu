@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/btn_hide_or_show_btm"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/bg_ic_more"
         android:src="@drawable/ic_more"
         android:layout_centerHorizontal="true"

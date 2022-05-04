@@ -12,7 +12,7 @@
         android:layout_weight="1"
         img_on = "@drawable/ic_home_on"
         img_off = "@drawable/ic_home_off"
-        tv = "@string/item_btm_home"/>
+        label = "@string/item_btm_home"/>
 
     <com.projectbase.mainapp.main.bottommenu.ItemBottomMenu
         android:layout_width="0dp"
@@ -20,7 +20,7 @@
         android:layout_weight="1"
         img_on = "@drawable/ic_training_on"
         img_off = "@drawable/ic_training_off"
-        tv = "@string/item_btm_training"/>
+        label = "@string/item_btm_training"/>
 
     <com.projectbase.mainapp.main.bottommenu.ItemBottomMenu
         android:layout_width="0dp"
@@ -28,7 +28,7 @@
         android:layout_weight="1"
         img_on = "@drawable/ic_exam_on"
         img_off = "@drawable/ic_exam_off"
-        tv = "@string/item_btm_exam"/>
+        label = "@string/item_btm_exam"/>
 
     <com.projectbase.mainapp.main.bottommenu.ItemBottomMenu
         android:layout_width="0dp"
@@ -36,6 +36,6 @@
         android:layout_weight="1"
         img_on = "@drawable/ic_more_on"
         img_off = "@drawable/ic_more_off"
-        tv = "@string/item_btm_more"/>
+        label = "@string/item_btm_more"/>
 
 </LinearLayout>
