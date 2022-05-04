@@ -6,10 +6,15 @@
 
     <color name="green">#5E1DC9F1</color>
     <color name="black">#000</color>
+    <color name="white">#FFFFFF</color>
     <color name="red">#F44336</color>
     <color name="blue">#2196F3</color>
     <color name="orange">#F1653F</color>
 
     <color name="dark_20">#33000000</color>
     <color name="violet">#9C27B0</color>
+
+    <color name="bottom_menu">#CC004D40</color>
+
+    <color name="item_btm">#FF6600</color>
 </resources>

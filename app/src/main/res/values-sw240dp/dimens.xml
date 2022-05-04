@@ -89,6 +89,9 @@
   <dimen name="space_30">
     20.0dp
   </dimen>
+  <dimen name="space_50">
+    33.33dp
+  </dimen>
   <dimen name="text_8">
     5.33sp
   </dimen>

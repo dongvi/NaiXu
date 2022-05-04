@@ -2,4 +2,9 @@
     <string name="app_name">Nai xừ</string>
 
     <string name="button_dialog_ok">OK</string>
+
+    <string name="item_btm_home">Home</string>
+    <string name="item_btm_training">Training</string>
+    <string name="item_btm_exam">Exam</string>
+    <string name="item_btm_more">More</string>
 </resources>
