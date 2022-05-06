@@ -5,16 +5,19 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.get
 import com.projectbase.R
 import kotlinx.android.synthetic.main.bottom_menu.view.*
 
-@SuppressLint("ClickableViewAccessibility")
-class BottomMenu(context: Context?, attrs: AttributeSet) : LinearLayout(context, attrs) {
-    private lateinit var onClickBottomMenuListener: OnClickBottomMenuListener
+class BottomMenu : ConstraintLayout {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    private var onClickBottomMenuListener: OnClickBottomMenuListener? = null
     private var currentItemPosition = 0
 
     init {
@@ -23,15 +26,11 @@ class BottomMenu(context: Context?, attrs: AttributeSet) : LinearLayout(context,
 
         for(position in 0 until root_bottom_menu.childCount) {
             val item = root_bottom_menu[position]
-            item.setOnTouchListener { _, motionEvent ->
-                when(motionEvent.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        turnOnItem(position)
-                        onClickBottomMenuListener.onItemClick(position)
-                    }
-                    MotionEvent.ACTION_UP -> {}
+            item.setOnClickListener {
+                if(currentItemPosition != position) {
+                    turnOnItem(position)
+                    onClickBottomMenuListener?.onItemClick(position)
                 }
-                true
             }
         }
 
@@ -40,15 +39,11 @@ class BottomMenu(context: Context?, attrs: AttributeSet) : LinearLayout(context,
     }
 
     fun turnOnItem(position: Int) {
-        if(currentItemPosition != position) {
-            (root_bottom_menu[currentItemPosition] as ItemBottomMenu).inactive()
-            currentItemPosition = position
-        }
-
+        (root_bottom_menu[currentItemPosition] as ItemBottomMenu).inactive()
         (root_bottom_menu[position] as ItemBottomMenu).active()
+        currentItemPosition = position
     }
 
-    @JvmName("setOnClickBottomMenuListener1")
     fun setOnClickBottomMenuListener(onClickBottomMenuListener: OnClickBottomMenuListener) {
         this.onClickBottomMenuListener = onClickBottomMenuListener
     }

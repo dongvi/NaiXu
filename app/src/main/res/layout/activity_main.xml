@@ -12,13 +12,13 @@
 
     <ImageView
         android:id="@+id/btn_hide_or_show_btm"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/space_24"
+        android:layout_height="@dimen/space_24"
         android:background="@drawable/bg_ic_more"
         android:src="@drawable/ic_more"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="45dp"/>
+        android:layout_marginBottom="@dimen/space_48"/>
 
     <com.projectbase.mainapp.main.bottommenu.BottomMenu
         android:id="@+id/bottom_menu"

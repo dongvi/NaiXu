@@ -18,7 +18,7 @@ class SplashFragment: BaseFragment() {
     companion object {
         val TAG = SplashFragment::class.java.name ?: "SplashFragment::class.java.name"
 
-        private const val SPLASH_TIME = 4500L
+        private const val SPLASH_TIME = 3000L
     }
 
     private var mainActivity: MainActivity? = null
@@ -36,13 +36,13 @@ class SplashFragment: BaseFragment() {
         view_logo.postDelayed({
             view_logo.visible()
 
-            view_logo.setAnim(context, R.anim.up_fade_in, 2000)
+            view_logo.setAnim(context, R.anim.up_fade_in, 1000)
 
             view_logo.postDelayed ({
-                view_logo.setAnim(context, R.anim.right_exit, 300)
+                view_logo.setAnim(context, R.anim.right_exit, 200)
                 view_logo.gone()
-            }, 4000)
-        }, 200)
+            }, 2300)
+        }, 500)
 
         startHomeScreen()
     }

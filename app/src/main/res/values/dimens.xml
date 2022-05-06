@@ -30,7 +30,11 @@
     <dimen name="space_28">28dp</dimen>
     <dimen name="space_29">29dp</dimen>
     <dimen name="space_30">30dp</dimen>
+    <dimen name="space_32">30dp</dimen>
+    <dimen name="space_40">40dp</dimen>
+    <dimen name="space_48">48dp</dimen>
     <dimen name="space_50">50dp</dimen>
+    <dimen name="space_56">56dp</dimen>
 
     <dimen name="text_8">8sp</dimen>
     <dimen name="text_9">9sp</dimen>
