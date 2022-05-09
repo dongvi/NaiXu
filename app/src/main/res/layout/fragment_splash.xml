@@ -5,7 +5,7 @@
     android:id="@+id/root_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/violet">
+    android:background="@drawable/backgroud_splash">
 
     <TextView
         android:id="@+id/view_logo"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="ղɑ¡ ✘ừ"
-        android:textColor="@color/orange"
+        android:textColor="@color/colorAccent"
         android:textSize="50sp"
         android:textStyle="bold"
         android:visibility="gone"/>
