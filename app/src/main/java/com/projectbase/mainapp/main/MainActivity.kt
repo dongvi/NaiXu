@@ -3,6 +3,7 @@ package com.projectbase.mainapp.main
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.projectbase.R
 import com.projectbase.base.ui.BaseActivity
@@ -92,9 +93,10 @@ class MainActivity : BaseActivity() {
         handler.postDelayed(dim, 1500)
 
         btn_hide_or_show_btm.visible()
-        btn_hide_or_show_btm.setAnim(applicationContext, R.anim.up_fade_in, 500)
+        btn_hide_or_show_btm.animation = AnimationUtils.loadAnimation(this, R.anim.up_fade_in)
+
         bottom_menu.visible()
-        bottom_menu.setAnim(applicationContext, R.anim.up_fade_in, 500)
+        bottom_menu.animation = AnimationUtils.loadAnimation(this, R.anim.up_fade_in)
 
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.right_enter, R.anim.left_exit)
@@ -148,49 +150,36 @@ class MainActivity : BaseActivity() {
 
     private fun hideOrShowBottomMenu() {
         var valueRotate = 0
-        var isHidden = false
-        var isAllowInteract = true // status allows interaction on btn_hide_or_show_btm
 
         btn_hide_or_show_btm.setOnClickListener {
-            if(isAllowInteract) {
-                // temporality not interaction
-                isAllowInteract = false
+            btn_hide_or_show_btm.isEnabled = false
+            val isHideBottomMenu = bottom_menu.visibility == View.GONE
 
-                // set anim for bottom menu
-                bottom_menu.setAnim(applicationContext,
-                    if (!isHidden) {
+            bottom_menu.animation = AnimationUtils
+                .loadAnimation(this,
+                    if(!isHideBottomMenu) {
                         bottom_menu.gone()
-                        R.anim.down_exit
+                        R.anim.move_down_exit
                     } else {
                         bottom_menu.visible()
-                        R.anim.up_in
-                    }, 500
-                )
+                        R.anim.move_up_in
+                    })
 
-                // set anim 1 for btn_hide_or_show_btm
-                it.animate()
-                    .translationY(if(!isHidden) bottom_menu.height.toFloat() else 0f)
-                    .setDuration(1000)
-                    .withEndAction {
-                        // after anim 1 finish, anim 2 is run
-                        valueRotate++
-                        it.animate()
-                            .rotation(valueRotate * 180f)
-                            .setDuration(500)
-                            .withEndAction {
-                                // change status of bottom menu
-                                isHidden = !isHidden
-
-                                // allow interact on btn_hide_or_show_btm
-                                isAllowInteract = true
-                            }.start()
-                    }.start()
-            }
+            // set anim 1 for btn_hide_or_show_btm
+            it.animate()
+                .translationY(if(!isHideBottomMenu) bottom_menu.height.toFloat() else 0f)
+                .setDuration(400)
+                .withEndAction {
+                    // after anim 1 finish, anim 2 is run
+                    it.animate().rotation(++valueRotate * 180f).setDuration(200)
+                        .withEndAction { btn_hide_or_show_btm.isEnabled = true }.start()
+                }.start()
 
             // clarify btn_hide_or_show_btm
             it.animate().alpha(1.0f).setDuration(0).start()
             handler.removeCallbacks(dim)
 
+            // if don't interact the btn_hide_or_show_btm is dim
             handler.postDelayed(dim, 1500)
         }
     }

@@ -101,6 +101,9 @@
   <dimen name="space_50">
     66.67dp
   </dimen>
+  <dimen name="space_56">
+    74.67dp
+  </dimen>
   <dimen name="text_8">
     10.67sp
   </dimen>

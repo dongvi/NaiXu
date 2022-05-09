@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationSet
+import android.view.animation.AnimationUtils
 import com.projectbase.R
 import com.projectbase.base.ui.BaseFragment
 import com.projectbase.base.ultils.extentions.gone
@@ -36,10 +39,10 @@ class SplashFragment: BaseFragment() {
         view_logo.postDelayed({
             view_logo.visible()
 
-            view_logo.setAnim(context, R.anim.up_fade_in, 1000)
+            view_logo.animation = AnimationUtils.loadAnimation(context, R.anim.up_fade_in)
 
             view_logo.postDelayed ({
-                view_logo.setAnim(context, R.anim.right_exit, 200)
+                view_logo.animation = AnimationUtils.loadAnimation(context, R.anim.right_exit)
                 view_logo.gone()
             }, 2300)
         }, 500)

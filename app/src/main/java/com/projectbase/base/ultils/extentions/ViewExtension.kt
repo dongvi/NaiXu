@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewPropertyAnimator
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
@@ -33,6 +34,10 @@ fun View.invisible() {
 fun View.setAnim(context: Context?, anim: Int, duration: Long) {
     this.animation = AnimationUtils.loadAnimation(context, anim)
     this.animation.duration = duration
+}
+
+fun View.setAnim(context: Context?, anim: Int) {
+    this.animation = AnimationUtils.loadAnimation(context, anim)
 }
 
 fun ImageView.setImageFromAttrRs(attrs: AttributeSet, attr: String) {
