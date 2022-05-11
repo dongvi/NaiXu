@@ -104,6 +104,30 @@
   <dimen name="space_56">
     37.33dp
   </dimen>
+  <dimen name="space_80">
+    53.33dp
+  </dimen>
+  <dimen name="space_120">
+    80.0dp
+  </dimen>
+  <dimen name="space_136">
+    90.67dp
+  </dimen>
+  <dimen name="space_160">
+    106.67dp
+  </dimen>
+  <dimen name="space_240">
+    160.0dp
+  </dimen>
+  <dimen name="space_360">
+    240.0dp
+  </dimen>
+  <dimen name="space_400">
+    266.67dp
+  </dimen>
+  <dimen name="space_480">
+    320.0dp
+  </dimen>
   <dimen name="text_8">
     5.33sp
   </dimen>
@@ -148,5 +172,14 @@
   </dimen>
   <dimen name="text_22">
     14.67sp
+  </dimen>
+  <dimen name="text_25">
+    16.67sp
+  </dimen>
+  <dimen name="text_30">
+    20.0sp
+  </dimen>
+  <dimen name="text_35">
+    23.33sp
   </dimen>
 </resources>
