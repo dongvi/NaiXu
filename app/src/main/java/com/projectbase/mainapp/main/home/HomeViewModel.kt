@@ -10,8 +10,8 @@ import com.projectbase.base.ui.BaseViewModel
 import com.projectbase.base.ultils.extentions.plusAssign
 
 class HomeViewModel(private val appApi: ApiRepository) : BaseViewModel() {
-    private val getListBannerAds = MutableLiveData<List<BannerAds>>()
-    private val getListDailyBlog = MutableLiveData<List<ItemDailyBlog>>()
+    private val getListBannerAds = MutableLiveData<MutableList<BannerAds>>()
+    private val getListDailyBlog = MutableLiveData<MutableList<ItemDailyBlog>>()
     private val error = MutableLiveData<Error>()
 
     fun getListBannerAds() = getListBannerAds
@@ -26,8 +26,8 @@ class HomeViewModel(private val appApi: ApiRepository) : BaseViewModel() {
         compositeDisposable += appApi.getDailyBlog().subscribeWith(GetDailyBlogApiObserver())
     }
 
-    private inner class GetBannerAdsApiObserver : ResultsObserver<List<BannerAds>>() {
-        override fun onSuccess(listBannerAds: List<BannerAds>) {
+    private inner class GetBannerAdsApiObserver : ResultsObserver<MutableList<BannerAds>>() {
+        override fun onSuccess(listBannerAds: MutableList<BannerAds>) {
             getListBannerAds.postValue(listBannerAds)
         }
 
@@ -36,8 +36,8 @@ class HomeViewModel(private val appApi: ApiRepository) : BaseViewModel() {
         }
     }
 
-    private inner class GetDailyBlogApiObserver : ResultsObserver<List<ItemDailyBlog>>() {
-        override fun onSuccess(listDailyBlog: List<ItemDailyBlog>) {
+    private inner class GetDailyBlogApiObserver : ResultsObserver<MutableList<ItemDailyBlog>>() {
+        override fun onSuccess(listDailyBlog: MutableList<ItemDailyBlog>) {
             getListDailyBlog.postValue(listDailyBlog)
         }
 

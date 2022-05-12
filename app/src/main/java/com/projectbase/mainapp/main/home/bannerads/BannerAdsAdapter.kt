@@ -11,14 +11,14 @@ import com.projectbase.base.api.model.BannerAds
 import kotlinx.android.synthetic.main.item_banner_ads.view.*
 import java.util.*
 
-class BannerAdsAdapter(val context: Context?) : PagerAdapter() {
+class BannerAdsAdapter(val context: Context) : PagerAdapter() {
 
-    private var data: List<BannerAds>? = null
+    private var data = emptyList<BannerAds>()
     private val inflater = LayoutInflater.from(context)
     private var bannerAdsAdapterListener: BannerAdsAdapterListener? = null
 
     override fun getCount(): Int {
-        return data?.size ?: 0
+        return data.size
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -29,11 +29,9 @@ class BannerAdsAdapter(val context: Context?) : PagerAdapter() {
         val view = inflater.inflate(R.layout.item_banner_ads, container, false)
         val obj = view.root_item_banner_ads
 
-        context?.let {
-            Glide.with(it)
-                .load(data?.get(position)?.imageUrl)
-                .into(obj.image_item_banner_ads)
-        }
+        Glide.with(context)
+            .load(data[position].imageUrl)
+            .into(obj.image_item_banner_ads)
 
         // removeView on the child's parent first
         if (obj.parent != null)
@@ -52,7 +50,7 @@ class BannerAdsAdapter(val context: Context?) : PagerAdapter() {
         container.removeView(`object` as View)
     }
 
-    fun setData(data: List<BannerAds>?) {
+    fun setData(data: MutableList<BannerAds>) {
         this.data = data
         notifyDataSetChanged()
     }

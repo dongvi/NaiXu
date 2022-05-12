@@ -17,6 +17,7 @@ import com.projectbase.mainapp.main.bottommenu.OnClickBottomMenuListener
 import com.projectbase.mainapp.main.home.HomeFragment
 import com.projectbase.mainapp.main.splash.SplashFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
@@ -194,11 +195,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0)
-            supportFragmentManager.popBackStack()
-        else {
-            super.onBackPressed()
-        }
+        super.onBackPressed()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -208,7 +205,11 @@ class MainActivity : BaseActivity() {
         else if (newConfig.orientation === Configuration.ORIENTATION_PORTRAIT) {}
     }
 
-    fun onBackFragment(tag: String?) {
+    fun setCurrentFragmentTag(tag: String?) {
         currentFragmentTag = tag
+    }
+
+    fun setBackground(resId: Int) {
+        root_activity.background = resources.getDrawable(resId)
     }
 }

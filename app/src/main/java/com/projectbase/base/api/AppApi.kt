@@ -16,8 +16,8 @@ interface AppApi {
     fun postExample(@Body body: PostRequest): Observable<PostResponse>
 
     @GET("bannerads")
-    fun getBannerAds(): Observable<List<BannerAds>>
+    fun getBannerAds(): Observable<MutableList<BannerAds>>
 
     @GET("dailyblog")
-    fun getDailyBlog(): Observable<List<ItemDailyBlog>>
+    fun getDailyBlog(): Observable<MutableList<ItemDailyBlog>>
 }

@@ -39,7 +39,7 @@ class DailyChallengeFragment : BaseFragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if(!hidden) {
-            mainActivity?.onBackFragment(DailyBlogFragment.TAG)
+            mainActivity?.setCurrentFragmentTag(DailyBlogFragment.TAG)
         }
     }
 }

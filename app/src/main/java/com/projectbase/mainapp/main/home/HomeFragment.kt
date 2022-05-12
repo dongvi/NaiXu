@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.LinearLayout
 import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,16 +50,18 @@ class HomeFragment : BaseFragment() {
 
     private val handler = Handler()
     private var currentItem = 0
-    private val TIME_DELAY = 3000L
+    private val TIME_DELAY_RUN_BANNER_ADS = 3000L
     private val autoRunBanner: Runnable = object : Runnable {
         override fun run() {
-            if (view_pager_banners.adapter?.count == currentItem + 1)
+            if (view_pager_banners.adapter?.count == currentItem + 1) {
                 currentItem = 0
-            else
+            }
+            else {
                 currentItem++
+            }
 
             view_pager_banners.currentItem = currentItem
-            handler.postDelayed(this, TIME_DELAY)
+            handler.postDelayed(this, TIME_DELAY_RUN_BANNER_ADS)
         }
     }
 
@@ -77,16 +78,20 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        getAllData()
         handleObservable()
     }
 
     private fun initView() {
-        mainActivity?.root_activity?.background = resources.getDrawable(R.drawable.background_home)
+        // set background for main activity
+        mainActivity?.setBackground(R.drawable.background_home)
+
         effectOfItems()
 
         // viewpager banner ads
-        bannerAdsAdapter = BannerAdsAdapter(context)
+        bannerAdsAdapter = context?.let { BannerAdsAdapter(it) }
         view_pager_banners.adapter = bannerAdsAdapter
+        handler.postDelayed(autoRunBanner, TIME_DELAY_RUN_BANNER_ADS)
 
         // catch event click on banner ads
         bannerAdsAdapter?.setBannerAdsAdapterListener(bannerAdsAdapterListener)
@@ -105,7 +110,7 @@ class HomeFragment : BaseFragment() {
         })
 
         // View daily blog
-        dailyBlogAdapter = DailyBlogAdapter(context)
+        dailyBlogAdapter = context?.let { DailyBlogAdapter(it) }
         container_item_daily_blog.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         container_item_daily_blog.adapter = dailyBlogAdapter
@@ -125,15 +130,12 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun handleObservable() {
-        homeViewModel.getBannerAdsApi()
-        homeViewModel.getDailyBlogApi()
-
         homeViewModel.getListBannerAds().observe(viewLifecycleOwner) {
             bannerAdsAdapter?.setData(it)
         }
 
         homeViewModel.getListDailyBlog().observe(viewLifecycleOwner) {
-            dailyBlogAdapter?.setData(if(it.size <= 3) it else it.slice(0..2))
+            dailyBlogAdapter?.setData(if(it.size <= 3) it else it.subList(0, 3))
         }
 
         homeViewModel.error().observe(viewLifecycleOwner) {
@@ -156,25 +158,20 @@ class HomeFragment : BaseFragment() {
         }, 500)
     }
 
-    override fun onResume() {
-        super.onResume()
-        handler.postDelayed(autoRunBanner, TIME_DELAY)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        handler.removeCallbacks(autoRunBanner)
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroyView()
         handler.removeCallbacks(autoRunBanner)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if(!hidden) {
-            mainActivity?.onBackFragment(TAG)
+            mainActivity?.setCurrentFragmentTag(TAG)
         }
+    }
+
+    private fun getAllData() {
+        homeViewModel.getBannerAdsApi()
+        homeViewModel.getDailyBlogApi()
     }
 }

@@ -27,14 +27,14 @@ class ApiRepository(
             .observeOn(rxSchedulers.androidMainThread())
     }
 
-    fun getBannerAds() : Observable<Result<List<BannerAds>>> {
+    fun getBannerAds() : Observable<Result<MutableList<BannerAds>>> {
         return appApi.getBannerAds()
             .retrofitResponseToResult()
             .subscribeOn(rxSchedulers.io())
             .observeOn(rxSchedulers.androidMainThread())
     }
 
-    fun getDailyBlog() : Observable<Result<List<ItemDailyBlog>>> {
+    fun getDailyBlog() : Observable<Result<MutableList<ItemDailyBlog>>> {
         return appApi.getDailyBlog()
             .retrofitResponseToResult()
             .subscribeOn(rxSchedulers.io())
