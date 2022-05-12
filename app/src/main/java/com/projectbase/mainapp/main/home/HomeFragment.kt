@@ -91,7 +91,6 @@ class HomeFragment : BaseFragment() {
         // viewpager banner ads
         bannerAdsAdapter = context?.let { BannerAdsAdapter(it) }
         view_pager_banners.adapter = bannerAdsAdapter
-        handler.postDelayed(autoRunBanner, TIME_DELAY_RUN_BANNER_ADS)
 
         // catch event click on banner ads
         bannerAdsAdapter?.setBannerAdsAdapterListener(bannerAdsAdapterListener)
@@ -132,6 +131,9 @@ class HomeFragment : BaseFragment() {
     private fun handleObservable() {
         homeViewModel.getListBannerAds().observe(viewLifecycleOwner) {
             bannerAdsAdapter?.setData(it)
+            if(it.size > 0) {
+                handler.postDelayed(autoRunBanner, TIME_DELAY_RUN_BANNER_ADS)
+            }
         }
 
         homeViewModel.getListDailyBlog().observe(viewLifecycleOwner) {
@@ -159,7 +161,7 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun onDestroy() {
-        super.onDestroyView()
+        super.onDestroy()
         handler.removeCallbacks(autoRunBanner)
     }
 

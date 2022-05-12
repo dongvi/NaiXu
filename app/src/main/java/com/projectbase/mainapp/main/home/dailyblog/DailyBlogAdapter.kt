@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_daily_blog.view.*
 
 class DailyBlogAdapter(val context: Context) : RecyclerView.Adapter<DailyBlogAdapter.ViewHolder>() {
 
-    private var data = emptyList<ItemDailyBlog>()
+    private var data = mutableListOf<ItemDailyBlog>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyBlogAdapter.ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_daily_blog, parent, false))

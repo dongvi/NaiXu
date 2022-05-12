@@ -8,12 +8,13 @@ import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import com.projectbase.R
 import com.projectbase.base.api.model.BannerAds
+import com.projectbase.base.api.model.ItemDailyBlog
 import kotlinx.android.synthetic.main.item_banner_ads.view.*
 import java.util.*
 
 class BannerAdsAdapter(val context: Context) : PagerAdapter() {
 
-    private var data = emptyList<BannerAds>()
+    private var data = mutableListOf<BannerAds>()
     private val inflater = LayoutInflater.from(context)
     private var bannerAdsAdapterListener: BannerAdsAdapterListener? = null
 
