@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#004D70</color>
+    <color name="colorPrimaryDark">#33000000</color>
     <color name="colorAccent">#D81B60</color>
 
     <color name="green">#5E1DC9F1</color>
@@ -12,9 +12,14 @@
     <color name="orange">#F1653F</color>
 
     <color name="dark_20">#33000000</color>
+    <color name="dark_10">#1A000000</color>
+    <color name="light_20">#33FFFFFF</color>
     <color name="violet">#9C27B0</color>
 
     <color name="bottom_menu">#CC004D40</color>
-
-    <color name="item_btm">#FF6600</color>
+    <color name="item_btm">#D9D81B60</color>
+    <color name="blue_40">#66ADDBFF</color>
+    <color name="blue_70">#B3ADDBFF</color>
+    <color name="blue_85">#D9ADDBFF</color>
+    <color name="blue_2_85">#D9E9F5FF</color>
 </resources>

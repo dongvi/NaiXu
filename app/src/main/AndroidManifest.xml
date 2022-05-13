@@ -20,7 +20,8 @@
             android:name=".mainapp.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|locale">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

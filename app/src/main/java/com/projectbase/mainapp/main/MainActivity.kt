@@ -1,5 +1,8 @@
 package com.projectbase.mainapp.main
 
+import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -14,6 +17,7 @@ import com.projectbase.mainapp.main.bottommenu.OnClickBottomMenuListener
 import com.projectbase.mainapp.main.home.HomeFragment
 import com.projectbase.mainapp.main.splash.SplashFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
@@ -46,10 +50,6 @@ class MainActivity : BaseActivity() {
         initViews()
         initScreenFlow()
         handleObservable()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 
     private fun initViews() {
@@ -92,11 +92,14 @@ class MainActivity : BaseActivity() {
         // if don't interact the btn_hide_or_show_btm is dim
         handler.postDelayed(dim, 1500)
 
-        btn_hide_or_show_btm.visible()
-        btn_hide_or_show_btm.animation = AnimationUtils.loadAnimation(this, R.anim.up_fade_in)
+        root_activity.postDelayed({
+            btn_hide_or_show_btm.visible()
+            bottom_menu.visible()
 
-        bottom_menu.visible()
-        bottom_menu.animation = AnimationUtils.loadAnimation(this, R.anim.up_fade_in)
+            btn_hide_or_show_btm.animation = AnimationUtils.loadAnimation(this, R.anim.up_fade_in)
+            bottom_menu.animation = AnimationUtils.loadAnimation(this, R.anim.up_fade_in)
+        }, 500)
+
 
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.right_enter, R.anim.left_exit)
@@ -116,10 +119,12 @@ class MainActivity : BaseActivity() {
         if (isEnableAnimation) {
             transaction.setCustomAnimations(R.anim.right_enter, R.anim.fade_out, R.anim.fade_in, R.anim.right_exit)
         }
+
         supportFragmentManager.findFragmentByTag(currentFragmentTag)?.let {
             transaction.hide(it)
         }
         currentFragmentTag = fragmentTag
+
         // if input fragment by tag is exist, show or re-add it
         supportFragmentManager.findFragmentByTag(fragmentTag)?.let {
             if (it.isAdded) transaction.show(it).commit()
@@ -187,5 +192,24 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(dim)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        if (newConfig.orientation === Configuration.ORIENTATION_LANDSCAPE) {}
+        else if (newConfig.orientation === Configuration.ORIENTATION_PORTRAIT) {}
+    }
+
+    fun setCurrentFragmentTag(tag: String?) {
+        currentFragmentTag = tag
+    }
+
+    fun setBackground(resId: Int) {
+        root_activity.background = resources.getDrawable(resId)
     }
 }

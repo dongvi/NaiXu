@@ -41,7 +41,7 @@ fun provideCallAdapterFactory(): RxJava2CallAdapterFactory = RxJava2CallAdapterF
 
 fun provideAppInterceptor(
     context: Context
-): Interceptor = AppInterceptor(context)
+): AppInterceptor = AppInterceptor(context)
 
 fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
     val loggingInterceptor = HttpLoggingInterceptor()
