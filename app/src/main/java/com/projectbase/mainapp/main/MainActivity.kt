@@ -155,15 +155,11 @@ class MainActivity : BaseActivity() {
             btn_hide_or_show_btm.isEnabled = false
             val isHideBottomMenu = bottom_menu.visibility == View.GONE
 
+            bottom_menu.setHidden(!isHideBottomMenu)
+
             bottom_menu.animation = AnimationUtils
                 .loadAnimation(this,
-                    if(!isHideBottomMenu) {
-                        bottom_menu.setHidden(true)
-                        R.anim.move_down_exit
-                    } else {
-                        bottom_menu.setHidden(false)
-                        R.anim.move_up_in
-                    })
+                    if(!isHideBottomMenu) R.anim.move_down_exit else  R.anim.move_up_in )
 
             // set anim 1 for btn_hide_or_show_btm
             it.animate()
