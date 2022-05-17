@@ -4,9 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import com.projectbase.R
 import com.projectbase.base.ui.BaseDialog
+import com.projectbase.base.ultils.extentions.setHidden
 import kotlinx.android.synthetic.main.dialog_error.*
-import com.projectbase.base.ultils.extentions.gone
-import com.projectbase.base.ultils.extentions.visible
 
 class ErrorDialog : BaseDialog {
 
@@ -43,18 +42,10 @@ class ErrorDialog : BaseDialog {
     override fun show() {
         super.show()
 
-        if (title.isNotBlank()) {
-            textTitle.visible()
-            textTitle.text = title
-        } else {
-            textTitle.gone()
-        }
+        textTitle.text = title
+        textTitle.setHidden(title.isBlank())
 
-        if (description.isNotBlank()) {
-            textDescription.visible()
-            textDescription.text = description
-        } else {
-            textDescription.gone()
-        }
+        textDescription.text = description
+        textDescription.setHidden(description.isBlank())
     }
 }

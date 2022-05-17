@@ -19,5 +19,5 @@ interface AppApi {
     fun getBannerAds(): Observable<MutableList<BannerAds>>
 
     @GET("dailyblog")
-    fun getDailyBlog(): Observable<MutableList<ItemDailyBlog>>
+    fun getDailyBlog(): Observable<MutableList<DailyBlog>>
 }

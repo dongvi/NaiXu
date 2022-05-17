@@ -52,27 +52,9 @@ class DailyBlogFragment : BaseFragment() {
         container_daily_blog.adapter = dailyBlogAdapter
 
         // feature post blog
-        view_user_think.setOnTouchListener { it, event ->
-            Log.d("TAG", "${event?.action}:")
-            when (event?.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    it.alpha = 0.5f
-                }
-
-                // cacel
-                MotionEvent.ACTION_MOVE -> {
-                    it.alpha = 1.0f
-                }
-
-                MotionEvent.ACTION_UP -> {
-                    it.alpha = 1.0f
-                    // feature post blog ...
-                }
-            }
-            true
+        view_user_think.setOnClickListener {
+            // think screen
         }
-
-
     }
 
     private fun handleObservable() {

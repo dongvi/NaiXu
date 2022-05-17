@@ -34,7 +34,7 @@ class ApiRepository(
             .observeOn(rxSchedulers.androidMainThread())
     }
 
-    fun getDailyBlog() : Observable<Result<MutableList<ItemDailyBlog>>> {
+    fun getDailyBlog() : Observable<Result<MutableList<DailyBlog>>> {
         return appApi.getDailyBlog()
             .retrofitResponseToResult()
             .subscribeOn(rxSchedulers.io())
