@@ -107,6 +107,9 @@
   <dimen name="space_80">
     106.67dp
   </dimen>
+  <dimen name="space_112">
+    149.33dp
+  </dimen>
   <dimen name="space_120">
     160.0dp
   </dimen>
@@ -118,6 +121,9 @@
   </dimen>
   <dimen name="space_240">
     320.0dp
+  </dimen>
+  <dimen name="space_280">
+    373.33dp
   </dimen>
   <dimen name="space_360">
     480.0dp

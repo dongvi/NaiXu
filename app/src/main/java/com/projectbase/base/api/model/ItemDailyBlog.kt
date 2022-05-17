@@ -3,8 +3,11 @@ package com.projectbase.base.api.model
 import com.squareup.moshi.Json
 
 data class ItemDailyBlog(
-    @field:Json(name = "userId")
-    var userId: String?,
+    @field:Json(name = "userName")
+    var userName: String?,
+
+    @field:Json(name = "avatar")
+    var avatar: String?,
 
     @field:Json(name = "dateSubmitted")
     var dateSubmitted: String?,

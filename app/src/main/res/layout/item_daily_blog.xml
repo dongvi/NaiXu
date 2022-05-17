@@ -31,7 +31,7 @@
                     android:layout_height="@dimen/space_48"
                     app:cardCornerRadius="@dimen/space_8"
                     app:cardElevation="0dp"
-                    android:layout_marginRight="@dimen/space_8">
+                    android:layout_marginEnd="@dimen/space_8">
 
                     <ImageView
                         android:id="@+id/avatar_user"
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/date_submitted"
-                    android:layout_toRightOf="@id/parent_avatar_user"
+                    android:layout_toEndOf="@id/parent_avatar_user"
                     android:maxLines="1"
                     android:textColor="@color/violet"
                     android:textSize="@dimen/text_18"
@@ -57,7 +57,7 @@
                     android:id="@+id/date_submitted"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/parent_avatar_user"
+                    android:layout_toEndOf="@id/parent_avatar_user"
                     android:layout_alignParentBottom="true"
                     android:maxLines="1"
                     android:textStyle="italic"
@@ -87,6 +87,18 @@
                     android:adjustViewBounds="true"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1"
+                android:background="@color/dark_5"
+                android:layout_marginHorizontal="@dimen/space_40"/>
+
+            <com.projectbase.mainapp.main.home.dailyblog.bottomfunc.BottomFunc
+                android:id="@+id/bottom_func_item_daily_blog"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_40"
+                android:layout_margin="@dimen/space_8"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -14,4 +14,11 @@
     <string name="label_view_daily_blog">Shared corner</string>
     <string name="label_view_daily_challenge">Daily challenge</string>
     <string name="label_view_game">Game</string>
+
+    -- fragment daily blog
+    <string name="label_daily_blog_fragment">Shared corner</string>
+    <string name="hint_edit_text_user_think">what you\'re thinking? ...</string>
+    <string name="button_like_daily_blog">Useful</string>
+    <string name="button_comment_daily_blog">Comment</string>
+    <string name="button_share_daily_blog">Share</string>
 </resources>

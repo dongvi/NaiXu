@@ -1,5 +1,6 @@
 package com.projectbase.mainapp.main
 
+import com.projectbase.mainapp.main.home.dailyblog.dailyBlogModule
 import com.projectbase.mainapp.main.home.homeModule
 import org.koin.dsl.module
 import org.koin.android.viewmodel.dsl.viewModel
@@ -10,4 +11,5 @@ val mainActivityModule = module {
         MainViewModel(get())
     }
     loadKoinModules(homeModule)
+    loadKoinModules(dailyBlogModule)
 }

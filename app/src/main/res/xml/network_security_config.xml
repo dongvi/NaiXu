@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">demo7507137.mockable.io</domain>
+        <domain includeSubdomains="true">demo5277646.mockable.io</domain>
     </domain-config>
 </network-security-config>
