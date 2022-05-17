@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.projectbase.R
-import com.projectbase.base.api.model.ItemDailyBlog
 import com.projectbase.base.ui.BaseFragment
-import com.projectbase.base.ultils.extentions.gone
-import com.projectbase.base.ultils.extentions.visible
+import com.projectbase.base.ultils.extentions.setHidden
 import com.projectbase.mainapp.main.MainActivity
 import com.projectbase.mainapp.main.MainViewModel
 import com.projectbase.mainapp.main.home.bannerads.BannerAdsAdapter
@@ -24,7 +22,6 @@ import com.projectbase.mainapp.main.home.dailyblog.DailyBlogAdapter
 import com.projectbase.mainapp.main.home.dailyblog.DailyBlogFragment
 import com.projectbase.mainapp.main.home.dailychanllenge.DailyChallengeFragment
 import com.projectbase.mainapp.main.home.game.GameFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -147,11 +144,11 @@ class HomeFragment : BaseFragment() {
 
     private fun effectOfItems() {
         for (item in root_home.children)
-            item.gone()
+            item.setHidden(true)
 
         root_home.postDelayed({
             for (item in root_home.children)
-                item.visible()
+                item.setHidden(false)
 
             view_pager_banners.animation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
             view_daily_blog.animation = AnimationUtils.loadAnimation(context, R.anim.left_in)

@@ -3,10 +3,7 @@ package com.projectbase.mainapp.main.bottommenu
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.setPadding
 import com.projectbase.R
 import com.projectbase.base.ultils.extentions.*
 import kotlinx.android.synthetic.main.item_bottom_menu.view.*
@@ -18,7 +15,7 @@ class ItemBottomMenu(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     init {
         LayoutInflater.from(context).inflate(R.layout.item_bottom_menu, this)
 
-        item_btm_tv.setTextFromAttrRs(attrs, "label")
+        item_btm_tv.text = resources.getString(attrs.getAttributeResourceValue(null, "label", 0))
         item_btm_tv.setTextColor(resources.getColor(R.color.item_btm))
         imageActive = attrs.getAttributeResourceValue(null, "image_active", 0)
         imageInactive = attrs.getAttributeResourceValue(null, "image_inactive", 0)
@@ -28,11 +25,11 @@ class ItemBottomMenu(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
     fun active() {
         item_btm_img.setImageResource(imageActive)
-        item_btm_tv.visible()
+        item_btm_tv.setHidden(false)
     }
 
     fun inactive() {
         item_btm_img.setImageResource(imageInactive)
-        item_btm_tv.gone()
+        item_btm_tv.setHidden(true)
     }
 }

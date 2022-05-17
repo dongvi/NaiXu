@@ -1,8 +1,6 @@
 package com.projectbase.mainapp.main
 
 import android.content.res.Configuration
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -10,14 +8,11 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.projectbase.R
 import com.projectbase.base.ui.BaseActivity
-import com.projectbase.base.ultils.extentions.gone
-import com.projectbase.base.ultils.extentions.setAnim
-import com.projectbase.base.ultils.extentions.visible
+import com.projectbase.base.ultils.extentions.setHidden
 import com.projectbase.mainapp.main.bottommenu.OnClickBottomMenuListener
 import com.projectbase.mainapp.main.home.HomeFragment
 import com.projectbase.mainapp.main.splash.SplashFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
@@ -67,8 +62,8 @@ class MainActivity : BaseActivity() {
     * Handle screen flow
     * */
     private fun initScreenFlow() {
-        btn_hide_or_show_btm.gone()
-        bottom_menu.gone()
+        btn_hide_or_show_btm.setHidden(true)
+        bottom_menu.setHidden(true)
         cleanBackStackIfNeed()
         supportFragmentManager.beginTransaction()
             .replace(
@@ -93,8 +88,8 @@ class MainActivity : BaseActivity() {
         handler.postDelayed(dim, 1500)
 
         root_activity.postDelayed({
-            btn_hide_or_show_btm.visible()
-            bottom_menu.visible()
+            btn_hide_or_show_btm.setHidden(false)
+            bottom_menu.setHidden(false)
 
             btn_hide_or_show_btm.animation = AnimationUtils.loadAnimation(this, R.anim.up_fade_in)
             bottom_menu.animation = AnimationUtils.loadAnimation(this, R.anim.up_fade_in)
@@ -160,15 +155,11 @@ class MainActivity : BaseActivity() {
             btn_hide_or_show_btm.isEnabled = false
             val isHideBottomMenu = bottom_menu.visibility == View.GONE
 
+            bottom_menu.setHidden(!isHideBottomMenu)
+
             bottom_menu.animation = AnimationUtils
                 .loadAnimation(this,
-                    if(!isHideBottomMenu) {
-                        bottom_menu.gone()
-                        R.anim.move_down_exit
-                    } else {
-                        bottom_menu.visible()
-                        R.anim.move_up_in
-                    })
+                    if(!isHideBottomMenu) R.anim.move_down_exit else  R.anim.move_up_in )
 
             // set anim 1 for btn_hide_or_show_btm
             it.animate()
