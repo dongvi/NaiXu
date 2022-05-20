@@ -133,8 +133,12 @@ class HomeFragment : BaseFragment() {
             }
         }
 
-        homeViewModel.getListDailyBlog().observe(viewLifecycleOwner) {
-            dailyBlogAdapter?.setData(if(it.size <= 3) it else it.subList(0, 3))
+        homeViewModel.getListDailyBlogApi().observe(viewLifecycleOwner) {
+            dailyBlogAdapter?.setDataBlog(if(it.size <= 3) it else it.subList(0, 3))
+        }
+
+        homeViewModel.getListUserApi().observe(viewLifecycleOwner) {
+            dailyBlogAdapter?.setDataUser(it)
         }
 
         homeViewModel.error().observe(viewLifecycleOwner) {
@@ -172,5 +176,6 @@ class HomeFragment : BaseFragment() {
     private fun getAllData() {
         homeViewModel.getBannerAdsApi()
         homeViewModel.getDailyBlogApi()
+        homeViewModel.getAllUserApi()
     }
 }

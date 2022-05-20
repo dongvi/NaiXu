@@ -20,4 +20,10 @@ interface AppApi {
 
     @GET("dailyblog")
     fun getDailyBlog(): Observable<MutableList<DailyBlog>>
+
+    @GET("user")
+    fun getUserById(@Query("id") id: String) : Observable<User>
+
+    @GET("user")
+    fun getAllUser() : Observable<MutableList<User>>
 }

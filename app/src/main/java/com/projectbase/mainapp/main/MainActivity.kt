@@ -1,20 +1,33 @@
 package com.projectbase.mainapp.main
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.projectbase.R
+import com.projectbase.base.api.model.User
 import com.projectbase.base.ui.BaseActivity
-import com.projectbase.base.ultils.extentions.setHidden
+import com.projectbase.base.ui.widgets.Dialog
+import com.projectbase.base.ultils.extentions.*
 import com.projectbase.mainapp.main.bottommenu.OnClickBottomMenuListener
 import com.projectbase.mainapp.main.home.HomeFragment
 import com.projectbase.mainapp.main.splash.SplashFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_post_blog.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.lang.Exception
+
+const val REQUEST_CODE_READ_STORAGE_PERMISSION = 1
+const val REQUEST_CODE_PICK_IMAGE = 101
 
 class MainActivity : BaseActivity() {
 
@@ -34,8 +47,12 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-    private val dim = Runnable { btn_hide_or_show_btm.animate().alpha(0.3f).start() }
     private val handler = Handler()
+    private val dim = Runnable { btn_hide_or_show_btm.animate().alpha(0.3f).start() }
+
+    // user login demo
+    var user = User("u0", null, null)
+    var isUserLogin = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -178,6 +195,11 @@ class MainActivity : BaseActivity() {
             // if don't interact the btn_hide_or_show_btm is dim
             handler.postDelayed(dim, 1500)
         }
+    }
+
+    fun setHiddenBottomMenu(isHiddenButton: Boolean, isHiddenBottomMenu: Boolean) {
+        btn_hide_or_show_btm.setHidden(isHiddenButton)
+        bottom_menu.setHidden(isHiddenBottomMenu)
     }
 
     override fun onDestroy() {

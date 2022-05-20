@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_dialog"
+    android:padding="@dimen/space_10"
+    android:orientation="vertical"
+    android:minWidth="@dimen/space_280">
+
+    <TextView
+        android:id="@+id/dialog_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_18"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/button_dialog_ok"
+            android:layout_width="@dimen/space_80"
+            android:layout_height="@dimen/space_32"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/background_button"
+            android:text="@string/action_dialog_ok"
+            android:textSize="@dimen/text_15"
+            android:textAllCaps="false"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/button_dialog_cancel"
+            android:layout_width="@dimen/space_80"
+            android:layout_height="@dimen/space_32"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/background_button"
+            android:text="@string/action_dialog_cancel"
+            android:textSize="@dimen/text_15"
+            android:textAllCaps="false"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+</LinearLayout>
