@@ -1,31 +1,31 @@
 package com.projectbase.mainapp.main.home.dailyblog.postblog
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.projectbase.R
+import com.projectbase.base.api.model.User
 import com.projectbase.base.local.database.entity.DailyBlogEntity
 import com.projectbase.base.ui.BaseFragment
 import com.projectbase.base.ui.widgets.Dialog
 import com.projectbase.base.ultils.extentions.setHidden
 import com.projectbase.mainapp.main.MainActivity
-import com.projectbase.mainapp.main.REQUEST_CODE_PICK_IMAGE
-import com.projectbase.mainapp.main.REQUEST_CODE_READ_STORAGE_PERMISSION
 import kotlinx.android.synthetic.main.fragment_post_blog.*
 import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.scope.viewModel
-import java.time.LocalDate
-import java.time.LocalDateTime
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PostBlogFragment : BaseFragment() {
 
@@ -36,6 +36,29 @@ class PostBlogFragment : BaseFragment() {
     private val postBlogViewModel : PostBlogViewModel by currentScope.viewModel(this)
     private var mainActivity: MainActivity? = null
     private var pickData: Intent? = null
+    private val pickImage =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            pickData = result.data
+            Glide.with(this).load(pickData?.data).into(image_view_post)
+            button_remove_image_view_post.setHidden(false)
+        }
+    }
+    private val requestStoragePermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+        if (isGranted) {
+            pickImageFromGallery()
+        } else {
+            val snackBar = Snackbar.make(
+                root_post_blog,
+                resources.getString(R.string.suggest_grant_storage_permission),
+                Snackbar.LENGTH_SHORT)
+            snackBar.view.setBackgroundColor(resources.getColor(R.color.blue_85, null))
+            snackBar.show()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,10 +69,15 @@ class PostBlogFragment : BaseFragment() {
         return LayoutInflater.from(context).inflate(R.layout.fragment_post_blog, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initView()
+        handleObservable()
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun initView() {
         button_back.setOnClickListener {
             mainActivity?.supportFragmentManager?.popBackStack()
         }
@@ -67,21 +95,17 @@ class PostBlogFragment : BaseFragment() {
         button_post.setOnClickListener {
             if(edit_text_post.text.isNullOrBlank() && image_view_post.drawable == null ) return@setOnClickListener
 
-            if (mainActivity?.isUserLogin!!) {
-                val blog = mainActivity?.user?.let { it ->
-                    DailyBlogEntity(
-                        it.id + LocalDateTime.now().toString(),
-                        it.id,
-                        "${LocalDate.now().dayOfMonth}/${LocalDate.now().monthValue}/${LocalDate.now().year}",
-                        edit_text_post.text.toString(),
-                        pickData?.data?.let {it.toString()})
-                }
+            mainActivity?.user?.let {
+                val blog = DailyBlogEntity(
+                    it.id + SimpleDateFormat("ddMMyyyyhhmmss").format(Date()),
+                    it.id,
+                    SimpleDateFormat("dd/MM/yyyy").format(Date()),
+                    edit_text_post.text.toString(),
+                    pickData?.data?.let {it.toString()})
 
-                blog?.let { it ->
-                    postBlogViewModel.insertDailyBlogLocal(it)
-                    mainActivity?.supportFragmentManager?.popBackStack()
-                }
-            } else {
+                postBlogViewModel.insertDailyBlogLocal(blog)
+                mainActivity?.supportFragmentManager?.popBackStack()
+            } ?: run {
                 val requestLoginDialog = Dialog()
                 requestLoginDialog.description = resources.getString(R.string.request_login_dialog_description)
                 mainActivity?.supportFragmentManager?.let { it -> requestLoginDialog.show(it, null) }
@@ -94,6 +118,8 @@ class PostBlogFragment : BaseFragment() {
             }
         }
     }
+
+    private fun handleObservable() {}
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
@@ -112,42 +138,9 @@ class PostBlogFragment : BaseFragment() {
         if(mainActivity?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE)
+            pickImage.launch(intent)
         } else {
-            requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_CODE_READ_STORAGE_PERMISSION)
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        // pick data for post dailog fragment
-        if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICK_IMAGE) {
-            pickData = data
-            Glide.with(this).load(data?.data).into(image_view_post)
-            button_remove_image_view_post.setHidden(false)
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if(requestCode == REQUEST_CODE_READ_STORAGE_PERMISSION) {
-            // read storage permission
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // if the permission is granted.
-                pickImageFromGallery()
-            } else {
-                val snackBar = Snackbar.make(
-                    root_post_blog,
-                    resources.getString(R.string.suggest_grant_storage_permission),
-                    Snackbar.LENGTH_SHORT)
-                snackBar.view.setBackgroundColor(resources.getColor(R.color.blue_85, null))
-                snackBar.show()
-            }
+            requestStoragePermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
     }
 }

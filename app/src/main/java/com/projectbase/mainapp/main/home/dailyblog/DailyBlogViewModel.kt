@@ -13,7 +13,7 @@ import com.projectbase.base.ultils.extentions.plusAssign
 
 class DailyBlogViewModel(private val appApi: ApiRepository,private val db: DatabaseRepository) : BaseViewModel() {
     private val getListDailyBlogApi = MutableLiveData<MutableList<DailyBlog>>()
-    private val getListDailyBlogLocal = MutableLiveData<MutableList<DailyBlogEntity>>()
+    private val getListDailyBlogLocal = MutableLiveData<MutableList<DailyBlog>>()
     private val getListUser = MutableLiveData<MutableList<User>>()
     private val error = MutableLiveData<Error>()
 
@@ -57,7 +57,13 @@ class DailyBlogViewModel(private val appApi: ApiRepository,private val db: Datab
 
     private inner class GetDailyBlogLocalObserver : ResultsObserver<MutableList<DailyBlogEntity>>() {
         override fun onSuccess(listDailyBlog: MutableList<DailyBlogEntity>) {
-            getListDailyBlogLocal.postValue(listDailyBlog)
+            getListDailyBlogLocal.postValue(listDailyBlog.map {
+                DailyBlog(it.id,
+                    it.userId,
+                    it.dateSubmitted,
+                    it.textBlog,
+                    it.imageBlog)
+            } as MutableList<DailyBlog>?)
         }
 
         override fun onError(err: Error) {

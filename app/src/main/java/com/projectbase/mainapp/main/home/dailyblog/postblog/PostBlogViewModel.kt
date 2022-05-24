@@ -1,13 +1,9 @@
 package com.projectbase.mainapp.main.home.dailyblog.postblog
 
 import androidx.lifecycle.MutableLiveData
-import com.projectbase.base.api.model.BannerAds
-import com.projectbase.base.api.model.DailyBlog
 import com.projectbase.base.api.model.Error
-import com.projectbase.base.api.model.User
 import com.projectbase.base.datahandling.ResultsObserver
 import com.projectbase.base.local.database.entity.DailyBlogEntity
-import com.projectbase.base.repository.ApiRepository
 import com.projectbase.base.repository.DatabaseRepository
 import com.projectbase.base.ui.BaseViewModel
 import com.projectbase.base.ultils.extentions.plusAssign

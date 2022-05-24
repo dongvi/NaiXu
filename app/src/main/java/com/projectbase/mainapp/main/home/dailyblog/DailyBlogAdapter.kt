@@ -6,20 +6,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.projectbase.R
 import com.projectbase.base.api.model.DailyBlog
 import com.projectbase.base.api.model.User
-import com.projectbase.base.local.database.entity.DailyBlogEntity
 import com.projectbase.base.ultils.extentions.setHidden
 import com.projectbase.mainapp.main.home.dailyblog.bottomfunc.ItemBottomFuncListener
 import kotlinx.android.synthetic.main.item_daily_blog.view.*
 
 class DailyBlogAdapter(val context: Context) : RecyclerView.Adapter<DailyBlogAdapter.ViewHolder>() {
 
-    private var data = mutableListOf<DailyBlog>()
+    private var dataBlog = mutableListOf<DailyBlog>()
     private var dataUser = mutableListOf<User>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyBlogAdapter.ViewHolder {
@@ -27,7 +25,7 @@ class DailyBlogAdapter(val context: Context) : RecyclerView.Adapter<DailyBlogAda
     }
 
     override fun onBindViewHolder(holder: DailyBlogAdapter.ViewHolder, position: Int) {
-        val item = data[position]
+        val item = dataBlog[position]
         val user = dataUser.find { userX -> userX.id == item.userId }
 
         // set user name
@@ -62,16 +60,14 @@ class DailyBlogAdapter(val context: Context) : RecyclerView.Adapter<DailyBlogAda
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return dataBlog.size
     }
 
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) { val view = item.rootView }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setDataBlog(data: MutableList<DailyBlog>) {
-        for(item in data) {
-            this.data.add(item)
-        }
+        this.dataBlog = data
         notifyDataSetChanged()
     }
 
@@ -79,17 +75,5 @@ class DailyBlogAdapter(val context: Context) : RecyclerView.Adapter<DailyBlogAda
     fun setDataUser(data: MutableList<User>) {
         this.dataUser = data
         notifyDataSetChanged()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setDataBlogLocal(data: MutableList<DailyBlogEntity>) {
-        for(item in data) {
-            this.data.add(DailyBlog(item.id, item.userId, item.dateSubmitted, item.textBlog, item.imageBlog))
-        }
-        notifyDataSetChanged()
-    }
-
-    fun removeAllDataBlog() {
-        data.removeAll(data)
     }
 }

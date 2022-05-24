@@ -2,12 +2,14 @@ package com.projectbase.mainapp.main.home.dailyblog
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.projectbase.R
+import com.projectbase.base.api.model.DailyBlog
 import com.projectbase.base.ui.BaseFragment
 import com.projectbase.mainapp.main.MainActivity
 import com.projectbase.mainapp.main.home.dailyblog.postblog.PostBlogFragment
@@ -59,26 +61,28 @@ class DailyBlogFragment : BaseFragment() {
         }
 
         // refresh
+        swipe_refresh_container_daily_Blog.setColorSchemeResources(R.color.blue)
         swipe_refresh_container_daily_Blog.setOnRefreshListener {
-            dailyBlogAdapter?.removeAllDataBlog()
             getAllData()
         }
+
+        button_back.setOnClickListener { mainActivity?.supportFragmentManager?.popBackStack() }
     }
 
     private fun handleObservable() {
-        dailyBlogViewModel.getListDailyBlogApi().observe(viewLifecycleOwner) {
-            dailyBlogAdapter?.setDataBlog(it)
-            swipe_refresh_container_daily_Blog.isRefreshing = false
+        dailyBlogViewModel.getListDailyBlogLocal().observe(viewLifecycleOwner) { dataLocal ->
+            dailyBlogViewModel.getListDailyBlogApi().observe(viewLifecycleOwner) { dataApi ->
+                val dataBlog = (dataLocal + dataApi) as MutableList<DailyBlog>
+                dailyBlogAdapter?.setDataBlog(dataBlog)
+                swipe_refresh_container_daily_Blog.isRefreshing = false
+            }
         }
 
         dailyBlogViewModel.getListUser().observe(viewLifecycleOwner) {
-            dailyBlogAdapter?.setDataUser(it)
-            swipe_refresh_container_daily_Blog.isRefreshing = false
-        }
-
-        dailyBlogViewModel.getListDailyBlogLocal().observe(viewLifecycleOwner) {
-            dailyBlogAdapter?.setDataBlogLocal(it)
-            swipe_refresh_container_daily_Blog.isRefreshing = false
+            it?.let {
+                dailyBlogAdapter?.setDataUser(it)
+                swipe_refresh_container_daily_Blog.isRefreshing = false
+            }
         }
 
         dailyBlogViewModel.error().observe(viewLifecycleOwner) {

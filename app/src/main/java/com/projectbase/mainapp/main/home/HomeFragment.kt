@@ -127,23 +127,27 @@ class HomeFragment : BaseFragment() {
 
     private fun handleObservable() {
         homeViewModel.getListBannerAds().observe(viewLifecycleOwner) {
-            bannerAdsAdapter?.setData(it)
-            if(it.size > 0) {
-                handler.postDelayed(autoRunBanner, TIME_DELAY_RUN_BANNER_ADS)
+            it?.let {
+                bannerAdsAdapter?.setData(it)
+                if(it.size > 0) {
+                    handler.postDelayed(autoRunBanner, TIME_DELAY_RUN_BANNER_ADS)
+                }
             }
         }
 
         homeViewModel.getListDailyBlogApi().observe(viewLifecycleOwner) {
-            dailyBlogAdapter?.setDataBlog(if(it.size <= 3) it else it.subList(0, 3))
+            it?.let {
+                dailyBlogAdapter?.setDataBlog(if(it.size <= 3) it else it.subList(0, 3))
+            }
         }
 
         homeViewModel.getListUserApi().observe(viewLifecycleOwner) {
-            dailyBlogAdapter?.setDataUser(it)
+            it?.let {
+                dailyBlogAdapter?.setDataUser(it)
+            }
         }
 
-        homeViewModel.error().observe(viewLifecycleOwner) {
-            Log.d("Check", "error: $it")
-        }
+        homeViewModel.error().observe(viewLifecycleOwner) {}
     }
 
     private fun effectOfItems() {

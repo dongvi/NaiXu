@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/button_back"
+        android:layout_width="@dimen/space_32"
+        android:layout_height="@dimen/space_32"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_40"
+        android:alpha="0.5"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_back_2" />
+
     <RelativeLayout
         android:id="@+id/header_daily_blog"
         android:layout_width="match_parent"
@@ -16,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/view_user_think"
+            android:layout_centerHorizontal="true"
             android:text="@string/label_daily_blog_fragment"
             android:textColor="@color/white"
             android:textSize="@dimen/text_30"
