@@ -1,33 +1,32 @@
 package com.projectbase.base.repository
 
 import com.projectbase.base.datahandling.Result
-import com.projectbase.base.local.database.dao.ExampleDao
-import com.projectbase.base.local.database.entity.ExampleEntity
+import com.projectbase.base.local.database.dao.DailyBlogDao
+import com.projectbase.base.local.database.entity.DailyBlogEntity
 import com.projectbase.base.ultils.rx.AppReactivexSchedulers
 import io.reactivex.Observable
 
-class DatabaseRepository(
-    private val exampleDao: ExampleDao,
+class DatabaseRepository (
+    private val dailyBlogDao: DailyBlogDao,
     private val rxSchedulers: AppReactivexSchedulers
 ) {
-    fun getExampleById(id: Int): Observable<Result<ExampleEntity?>> {
-        return return Observable.create<Result<ExampleEntity?>> { emitter ->
+    fun getAllDailyBlog(): Observable<Result<MutableList<DailyBlogEntity>>> {
+        return Observable.create<Result<MutableList<DailyBlogEntity>>> { emitter ->
             try {
-                val data = exampleDao.getExampleById(id)
+                val data = dailyBlogDao.getAllDailyBlog()
                 emitter.onNext(Result(data, null))
                 emitter.onComplete()
             } catch (throwable: Throwable) {
                 throwable.printStackTrace()
                 emitter.onError(throwable)
             }
-        }.subscribeOn(rxSchedulers.io())
-            .observeOn(rxSchedulers.androidMainThread())
+        }.subscribeOn(rxSchedulers.io()).observeOn(rxSchedulers.androidMainThread())
     }
 
-    fun addExampleEntity(data: ExampleEntity): Observable<Result<Boolean>> {
+    fun insertDailyBlogEntity(data: DailyBlogEntity): Observable<Result<Boolean>> {
         return Observable.create<Result<Boolean>> { emitter ->
             try {
-                exampleDao.addExampleEntity(data)
+                dailyBlogDao.insertDailyBlog(data)
                 emitter.onNext(Result(true, null))
                 emitter.onComplete()
             } catch (throwable: Throwable) {
@@ -37,10 +36,10 @@ class DatabaseRepository(
             .observeOn(rxSchedulers.androidMainThread())
     }
 
-    fun updateExampleEntity(data: ExampleEntity): Observable<Result<Boolean>> {
+    fun updateDailyBlogEntity(data: DailyBlogEntity): Observable<Result<Boolean>> {
         return Observable.create<Result<Boolean>> { emitter ->
             try {
-                val result = exampleDao.updateExampleEntity(data)
+                val result = dailyBlogDao.updateDailyBlog(data)
                 emitter.onNext(Result(result > 0, null))
                 emitter.onComplete()
             } catch (throwable: Throwable) {
@@ -50,10 +49,10 @@ class DatabaseRepository(
             .observeOn(rxSchedulers.androidMainThread())
     }
 
-    fun deleteExampleEntity(data: ExampleEntity): Observable<Result<Boolean>> {
+    fun deleteDailyBlogEntity(data: DailyBlogEntity): Observable<Result<Boolean>> {
         return Observable.create<Result<Boolean>> { emitter ->
             try {
-                val result = exampleDao.deleteExampleEntity(data)
+                val result = dailyBlogDao.deleteDailyBlog(data)
                 emitter.onNext(Result(result > 0, null))
                 emitter.onComplete()
             } catch (throwable: Throwable) {

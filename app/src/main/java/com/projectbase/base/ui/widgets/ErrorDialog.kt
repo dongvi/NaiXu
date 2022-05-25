@@ -7,9 +7,9 @@ import com.projectbase.base.ui.BaseDialog
 import com.projectbase.base.ultils.extentions.setHidden
 import kotlinx.android.synthetic.main.dialog_error.*
 
-class ErrorDialog : BaseDialog {
+class ErrorDialog : BaseDialog() {
 
-    interface OnConfirmListener {
+   /* interface OnConfirmListener {
         fun onConfirmOk()
     }
 
@@ -47,5 +47,5 @@ class ErrorDialog : BaseDialog {
 
         textDescription.text = description
         textDescription.setHidden(description.isBlank())
-    }
+    }*/
 }

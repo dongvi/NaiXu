@@ -40,4 +40,18 @@ class ApiRepository(
             .subscribeOn(rxSchedulers.io())
             .observeOn(rxSchedulers.androidMainThread())
     }
+
+    fun getUserById(id: String): Observable<Result<User>> {
+        return appApi.getUserById(id)
+            .retrofitResponseToResult()
+            .subscribeOn(rxSchedulers.io())
+            .observeOn(rxSchedulers.androidMainThread())
+    }
+
+    fun getAllUser() : Observable<Result<MutableList<User>>> {
+        return appApi.getAllUser()
+            .retrofitResponseToResult()
+            .subscribeOn(rxSchedulers.io())
+            .observeOn(rxSchedulers.androidMainThread())
+    }
 }

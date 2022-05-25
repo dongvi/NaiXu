@@ -7,8 +7,9 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.projectbase.R
+import com.projectbase.base.api.model.User
 import com.projectbase.base.ui.BaseActivity
-import com.projectbase.base.ultils.extentions.setHidden
+import com.projectbase.base.ultils.extentions.*
 import com.projectbase.mainapp.main.bottommenu.OnClickBottomMenuListener
 import com.projectbase.mainapp.main.home.HomeFragment
 import com.projectbase.mainapp.main.splash.SplashFragment
@@ -34,8 +35,8 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-    private val dim = Runnable { btn_hide_or_show_btm.animate().alpha(0.3f).start() }
     private val handler = Handler()
+    private val dim = Runnable { btn_hide_or_show_btm.animate().alpha(0.3f).start() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -178,6 +179,11 @@ class MainActivity : BaseActivity() {
             // if don't interact the btn_hide_or_show_btm is dim
             handler.postDelayed(dim, 1500)
         }
+    }
+
+    fun setHiddenBottomMenu(isHiddenButton: Boolean, isHiddenBottomMenu: Boolean) {
+        btn_hide_or_show_btm.setHidden(isHiddenButton)
+        bottom_menu.setHidden(isHiddenBottomMenu)
     }
 
     override fun onDestroy() {

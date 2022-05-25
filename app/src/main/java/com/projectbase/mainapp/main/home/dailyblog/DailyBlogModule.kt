@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val dailyBlogModule = module {
     scope(named<DailyBlogFragment>()) {
         viewModel {
-            DailyBlogViewModel(get())
+            DailyBlogViewModel(get(), get())
         }
     }
 }

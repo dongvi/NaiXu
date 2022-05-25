@@ -2,9 +2,7 @@ package com.projectbase.mainapp.main.home.dailyblog
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.projectbase.R
 import com.projectbase.base.ui.BaseFragment
 import com.projectbase.mainapp.main.MainActivity
-import kotlinx.android.synthetic.main.bottom_func.view.*
+import com.projectbase.mainapp.main.home.dailyblog.postblog.PostBlogFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_daily_blog.*
 import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.scope.viewModel
@@ -26,6 +25,7 @@ class DailyBlogFragment : BaseFragment() {
     private var mainActivity: MainActivity? = null
     private var dailyBlogAdapter: DailyBlogAdapter? = null
     private val dailyBlogViewModel: DailyBlogViewModel by currentScope.viewModel(this)
+    private var isHiddenBottomMenu = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,17 +53,37 @@ class DailyBlogFragment : BaseFragment() {
 
         // feature post blog
         view_user_think.setOnClickListener {
-            // think screen
+            isHiddenBottomMenu = mainActivity?.bottom_menu?.visibility == View.GONE
+            mainActivity?.addFragment(PostBlogFragment.TAG, PostBlogFragment(), true)
+            mainActivity?.setHiddenBottomMenu(true, true)
         }
+
+        // refresh
+        swipe_refresh_container_daily_Blog.setColorSchemeResources(R.color.blue)
+        swipe_refresh_container_daily_Blog.setOnRefreshListener {
+            getAllData()
+        }
+
+        button_back.setOnClickListener { mainActivity?.supportFragmentManager?.popBackStack() }
     }
 
     private fun handleObservable() {
         dailyBlogViewModel.getListDailyBlog().observe(viewLifecycleOwner) {
-            dailyBlogAdapter?.setData(it)
+            it?.let {
+                dailyBlogAdapter?.setDataBlog(it)
+                swipe_refresh_container_daily_Blog.isRefreshing = false
+            }
+        }
+
+        dailyBlogViewModel.getListUser().observe(viewLifecycleOwner) {
+            it?.let {
+                dailyBlogAdapter?.setDataUser(it)
+                swipe_refresh_container_daily_Blog.isRefreshing = false
+            }
         }
 
         dailyBlogViewModel.error().observe(viewLifecycleOwner) {
-            Log.d("Check", "error: $it")
+            swipe_refresh_container_daily_Blog.isRefreshing = false
         }
     }
 
@@ -71,10 +91,14 @@ class DailyBlogFragment : BaseFragment() {
         super.onHiddenChanged(hidden)
         if(!hidden) {
             mainActivity?.setCurrentFragmentTag(TAG)
+            mainActivity?.setHiddenBottomMenu(false, isHiddenBottomMenu)
         }
     }
 
     private fun getAllData() {
+        dailyBlogViewModel.getListDailyBlog().postValue(null)
         dailyBlogViewModel.getDailyBlogApi()
+        dailyBlogViewModel.getAllUserApi()
+        dailyBlogViewModel.getDailyBlogLocal()
     }
 }
