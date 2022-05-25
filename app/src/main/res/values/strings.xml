@@ -17,8 +17,21 @@
 
     -- fragment daily blog
     <string name="label_daily_blog_fragment">Shared corner</string>
-    <string name="hint_edit_text_user_think">what you\'re thinking? ...</string>
+    <string name="hint_edit_text_user_think">What you\'re thinking? ...</string>
     <string name="button_like_daily_blog">Useful</string>
     <string name="button_comment_daily_blog">Comment</string>
     <string name="button_share_daily_blog">Share</string>
+
+    -- fragment post blog
+    <string name="label_post_blog_fragment">New post</string>
+    <string name="hint_edit_text_post">Write something ...</string>
+
+    -- grant permission
+    <string name="suggest_grant_storage_permission">Please grant storage permission to use this function!</string>
+    <string name="action_message_ok">Ok</string>
+
+    -- dialog
+    <string name="action_dialog_ok">Ok</string>
+    <string name="action_dialog_cancel">Cancel</string>
+    <string name="request_login_dialog_description">Please login to post blog!</string>
 </resources>

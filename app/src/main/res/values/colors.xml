@@ -15,6 +15,7 @@
     <color name="dark_10">#1A000000</color>
     <color name="dark_5">#0D000000</color>
     <color name="light_20">#33FFFFFF</color>
+    <color name="gray">#F1F1F1</color>
     <color name="violet">#9C27B0</color>
 
     <color name="bottom_menu">#CC004D40</color>

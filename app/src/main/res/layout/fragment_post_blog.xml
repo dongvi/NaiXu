@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_post_blog"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+    <ImageView
+        android:id="@+id/button_back"
+        android:layout_width="@dimen/space_32"
+        android:layout_height="@dimen/space_32"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_40"
+        android:alpha="0.5"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_back_2" />
+
+    <LinearLayout
+        android:id="@+id/header_post_blog"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_80"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_post_blog_fragment"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_30"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="@dimen/space_160"
+            android:layout_height="@dimen/space_1"
+            android:background="@color/dark_20" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/root_bottom_func_post_blog"
+        android:layout_below="@id/header_post_blog"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_8"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_text_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/no_color"
+                android:gravity="top"
+                android:hint="@string/hint_edit_text_post"
+                android:minHeight="@dimen/space_120"
+                android:textColor="@color/black"
+                android:textColorHint="@color/dark_20"
+                android:textSize="@dimen/text_15" />
+
+            <ImageView
+                android:id="@+id/image_view_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_text_post"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:id="@+id/button_remove_image_view_post"
+                android:layout_width="@dimen/space_24"
+                android:layout_height="@dimen/space_24"
+                android:layout_below="@id/edit_text_post"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/space_8"
+                android:alpha="0.5"
+                android:background="@drawable/background_button_2"
+                android:src="@drawable/ic_close"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/root_bottom_func_post_blog"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_40"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/space_8"
+            android:background="@color/dark_20" />
+
+        <ImageView
+            android:id="@+id/button_add_image"
+            android:layout_width="@dimen/space_120"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingVertical="@dimen/space_4"
+            android:src="@drawable/ic_image"
+            app:tint="@color/blue_85" />
+
+        <ImageView
+            android:id="@+id/button_post"
+            android:layout_width="@dimen/space_120"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingVertical="@dimen/space_4"
+            android:src="@drawable/ic_post"
+            app:tint="@color/blue_85"/>
+
+    </RelativeLayout>
+</RelativeLayout>

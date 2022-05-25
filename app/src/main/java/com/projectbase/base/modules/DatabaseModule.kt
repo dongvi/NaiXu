@@ -12,7 +12,7 @@ const val APP_DB_NAME = "app_database"
 
 val databaseModule = module {
     single { provideRoomDb(androidContext()) }
-    single { provideExampleDao(get()) }
+    single { provideDailyBlogDao(get()) }
 }
 
 fun provideRoomDb(context: Context) =
@@ -20,7 +20,7 @@ fun provideRoomDb(context: Context) =
         //.addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
         .build()
 
-fun provideExampleDao(db: AppDatabase) = db.exampleDao()
+fun provideDailyBlogDao(db: AppDatabase) = db.dailyBlogDao()
 
 // Database migration
 /*private val MIGRATION_1_2 = object : Migration(1, 2) {
