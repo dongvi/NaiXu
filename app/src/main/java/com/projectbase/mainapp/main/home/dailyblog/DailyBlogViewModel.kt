@@ -12,14 +12,12 @@ import com.projectbase.base.ui.BaseViewModel
 import com.projectbase.base.ultils.extentions.plusAssign
 
 class DailyBlogViewModel(private val appApi: ApiRepository,private val db: DatabaseRepository) : BaseViewModel() {
-    private val getListDailyBlogApi = MutableLiveData<MutableList<DailyBlog>>()
-    private val getListDailyBlogLocal = MutableLiveData<MutableList<DailyBlog>>()
-    private val getListUser = MutableLiveData<MutableList<User>>()
+    private val dailyBlogLiveData = MutableLiveData<MutableList<DailyBlog>>()
+    private val userLiveData = MutableLiveData<MutableList<User>>()
     private val error = MutableLiveData<Error>()
 
-    fun getListDailyBlogApi() = getListDailyBlogApi
-    fun getListUser() = getListUser
-    fun getListDailyBlogLocal() = getListDailyBlogLocal
+    fun getListDailyBlog() = dailyBlogLiveData
+    fun getListUser() = userLiveData
     fun error() = error
 
     fun getDailyBlogApi() {
@@ -35,8 +33,30 @@ class DailyBlogViewModel(private val appApi: ApiRepository,private val db: Datab
     }
 
     private inner class GetDailyBlogApiObserver : ResultsObserver<MutableList<DailyBlog>>() {
-        override fun onSuccess(listDailyBlog: MutableList<DailyBlog>) {
-            getListDailyBlogApi.postValue(listDailyBlog)
+        override fun onSuccess(listData: MutableList<DailyBlog>) {
+            val currentData = dailyBlogLiveData.value ?: mutableListOf()
+            currentData.addAll(listData)
+            dailyBlogLiveData.postValue(currentData)
+        }
+
+        override fun onError(err: Error) {
+            error.postValue(err)
+        }
+    }
+
+    private inner class GetDailyBlogLocalObserver : ResultsObserver<MutableList<DailyBlogEntity>>() {
+        override fun onSuccess(listData: MutableList<DailyBlogEntity>) {
+            val dataTransformation = listData.map {
+                DailyBlog(it.id,
+                    it.userId,
+                    it.dateSubmitted,
+                    it.textBlog,
+                    it.imageBlog)
+            } as MutableList<DailyBlog>
+
+            val currentData = dailyBlogLiveData.value ?: mutableListOf()
+            currentData.addAll(dataTransformation)
+            dailyBlogLiveData.postValue(currentData)
         }
 
         override fun onError(err: Error) {
@@ -46,24 +66,7 @@ class DailyBlogViewModel(private val appApi: ApiRepository,private val db: Datab
 
     private inner class GetAllUserApiObserver : ResultsObserver<MutableList<User>>() {
         override fun onSuccess(listUser: MutableList<User>) {
-            getListUser.postValue(listUser)
-        }
-
-        override fun onError(err: Error) {
-            error.postValue(err)
-        }
-
-    }
-
-    private inner class GetDailyBlogLocalObserver : ResultsObserver<MutableList<DailyBlogEntity>>() {
-        override fun onSuccess(listDailyBlog: MutableList<DailyBlogEntity>) {
-            getListDailyBlogLocal.postValue(listDailyBlog.map {
-                DailyBlog(it.id,
-                    it.userId,
-                    it.dateSubmitted,
-                    it.textBlog,
-                    it.imageBlog)
-            } as MutableList<DailyBlog>?)
+            userLiveData.postValue(listUser)
         }
 
         override fun onError(err: Error) {

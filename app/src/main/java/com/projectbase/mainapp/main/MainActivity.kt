@@ -38,9 +38,6 @@ class MainActivity : BaseActivity() {
     private val handler = Handler()
     private val dim = Runnable { btn_hide_or_show_btm.animate().alpha(0.3f).start() }
 
-    // user login demo
-    var user: User? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
