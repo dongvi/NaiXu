@@ -70,6 +70,8 @@ class DailyBlogFragment : BaseFragment() {
     private fun handleObservable() {
         dailyBlogViewModel.getListDailyBlog().observe(viewLifecycleOwner) {
             it?.let {
+                if(it.size == 0) return@observe
+
                 dailyBlogAdapter?.setDataBlog(it)
                 swipe_refresh_container_daily_Blog.isRefreshing = false
             }
@@ -77,6 +79,8 @@ class DailyBlogFragment : BaseFragment() {
 
         dailyBlogViewModel.getListUser().observe(viewLifecycleOwner) {
             it?.let {
+                if(it.size == 0) return@observe
+
                 dailyBlogAdapter?.setDataUser(it)
                 swipe_refresh_container_daily_Blog.isRefreshing = false
             }
