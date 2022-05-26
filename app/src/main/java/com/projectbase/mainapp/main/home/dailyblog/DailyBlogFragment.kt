@@ -48,7 +48,6 @@ class DailyBlogFragment : BaseFragment() {
             }
         }
 
-
         override fun onClickButtonComment() {
         }
 
@@ -73,7 +72,6 @@ class DailyBlogFragment : BaseFragment() {
         handleObservable()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
         // blogs
         dailyBlogAdapter = context?.let { DailyBlogAdapter(it) }

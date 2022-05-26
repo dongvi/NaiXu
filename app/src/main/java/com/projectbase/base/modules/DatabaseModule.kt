@@ -18,7 +18,7 @@ val databaseModule = module {
 
 fun provideRoomDb(context: Context) =
     Room.databaseBuilder(context, AppDatabase::class.java, APP_DB_NAME)
-        //.addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+        .addMigrations(MIGRATION_1_2)
         .build()
 
 fun provideDailyBlogDao(db: AppDatabase) = db.dailyBlogDao()
@@ -26,13 +26,13 @@ fun provideDailyBlogDao(db: AppDatabase) = db.dailyBlogDao()
 fun provideLikeActionDao(db: AppDatabase) = db.likeActionDao()
 
 // Database migration
-/*private val MIGRATION_1_2 = object : Migration(1, 2) {
+private val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("CREATE TABLE `FollowData` (`id` INTEGER NOT NULL, `is_follow` INTEGER NOT NULL, PRIMARY KEY(`id`))")
+        database.execSQL("CREATE TABLE `likeactionentity`( `id` TEXT PRIMARY KEY NOT NULL, `usedId` TEXT, `blogId` TEXT)")
     }
 }
 
-private val MIGRATION_2_3 = object : Migration(2, 3) {
+/*private val MIGRATION_2_3 = object : Migration(2, 3) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("CREATE TABLE `SearchHistory` (`key_word` TEXT NOT NULL, `update_at` INTEGER NOT NULL, PRIMARY KEY(`key_word`))")
     }

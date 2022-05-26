@@ -60,9 +60,8 @@ class DailyBlogAdapter(val context: Context) : RecyclerView.Adapter<DailyBlogAda
 
         // set actions: like, comment, share
         holder.buttonLike.setOnClickListener {
-            it as ItemBottomFunc
-            it.setActive(!it.isActive)
-            itemBottomFuncListener?.onClickButtonLike(it, userLogin?.id, blog.id)
+            holder.buttonLike.setActive(!holder.buttonLike.isActive)
+            itemBottomFuncListener?.onClickButtonLike(holder.buttonLike, userLogin?.id, blog.id)
         }
 
         holder.buttonComment.setOnClickListener {
