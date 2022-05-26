@@ -10,5 +10,8 @@ class MainViewModel(
 ) : BaseViewModel() {
     private val user = MutableLiveData<User>()
 
-    fun getUser() = user
+    fun getUser(): MutableLiveData<User> {
+        user.postValue(User("u0", null, null))
+        return user
+    }
 }
