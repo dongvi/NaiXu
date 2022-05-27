@@ -28,7 +28,13 @@ fun provideLikeActionDao(db: AppDatabase) = db.likeActionDao()
 // Database migration
 private val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("CREATE TABLE `likeactionentity`( `id` TEXT PRIMARY KEY NOT NULL, `usedId` TEXT, `blogId` TEXT)")
+        val sql = "CREATE TABLE `LikeActionEntity`( " +
+                "`id` TEXT NOT NULL, " +
+                "`usedId` TEXT NOT NULL, " +
+                "`blogId` TEXT NOT NULL," +
+                "PRIMARY KEY (`id`)" +
+                ")"
+        database.execSQL(sql)
     }
 }
 

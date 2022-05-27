@@ -42,6 +42,7 @@ class DailyBlogFragment : BaseFragment() {
             blogId: String?,
         ) {
             if(buttonLike.isActive) {
+                if(userId != null && blogId != null)
                 dailyBlogViewModel.insertLikeAction(LikeActionEntity(userId + blogId, userId, blogId))
             } else {
                 dailyBlogViewModel.deleteLikeAction(userId, blogId)
