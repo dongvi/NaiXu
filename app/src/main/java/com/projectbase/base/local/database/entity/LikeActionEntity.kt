@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class LikeActionEntity (
     @PrimaryKey val id: String,
-    @ColumnInfo(name = "userId") val userId: String,
-    @ColumnInfo(name = "blogId") val blogId: String
+    @ColumnInfo(name = "userId") val userId: String?,
+    @ColumnInfo(name = "blogId") val blogId: String?
 )
