@@ -137,13 +137,13 @@ class HomeFragment : BaseFragment() {
 
         homeViewModel.getListDailyBlogApi().observe(viewLifecycleOwner) {
             it?.let {
-                dailyBlogAdapter?.setDataBlog(if(it.size <= 3) it else it.subList(0, 3))
+                dailyBlogAdapter?.setBlogData(if(it.size <= 3) it else it.subList(0, 3))
             }
         }
 
         homeViewModel.getListUserApi().observe(viewLifecycleOwner) {
             it?.let {
-                dailyBlogAdapter?.setDataUser(it)
+                dailyBlogAdapter?.setUserData(it)
             }
         }
 

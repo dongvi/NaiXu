@@ -8,7 +8,7 @@ import com.projectbase.base.ui.BaseViewModel
 class MainViewModel(
     private val appApi: ApiRepository
 ) : BaseViewModel() {
-    private val user = MutableLiveData<User>()
+    private val user = MutableLiveData<User>(User("u0", null, null))
 
     fun getUser() = user
 }
